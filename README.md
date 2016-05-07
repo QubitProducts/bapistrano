@@ -117,10 +117,14 @@ It also has some helper commands for performing chores on s3 `list` and `remove`
 - `list` - lists all deployments of all branches
 - `remove` - removes a deployment specified by a commit or deployment directory. Bap will refuse to remove releases that are pointed at by `current`.
 
+#### Build
+
+By default, the build command is `npm run build`, but you can specify a custom command in `package.json` key `bap.build`. Similarly, at the end of the `upload` or `release` execution, `npm run clean` gets run. Change this with `bap.clean`. An environment variable BAP_RELEASE_NAME is set before executing the build command so that the build process could take this into account. For example, this might be useful when specifying the `webpack` `publicPath` option. BAP_RELEASE_NAME is of structure YYYY-MM-DDTHHmmss-commit, where commit is the first 6 commit characters.
+
 #### Shared
 
 Shared directory can be used for files that should stay the same between deploys. Useful for resources that should be cached forever.
 
-#### .bap-uploaded
+#### REVISION
 
-When an upload is succesfully completed, a `.bap-uploaded` file gets created in the release dir.
+When an upload is succesfully completed, a `REVISION` file gets created in the release dir. You can check for this file to know if the upload is complete.

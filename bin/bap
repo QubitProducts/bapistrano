@@ -12,13 +12,18 @@ program
   .command('upload')
   .option('-b, --as-branch [branch]', 'Upload the current commit to the specified branch dir irrespective of current branch')
   .description('Build and upload the current branch to s3.')
-  .action(make('upload'))
+  .action(make('upload', true))
 
 program
   .command('release')
   .option('-b, --as-branch [branch]', 'Release the current commit to the specified branch dir irrespective of current branch')
   .description('Release the current branch to s3. Uploads first if needed.')
-  .action(make('release'))
+  .action(make('release', true))
+
+program
+  .command('ls')
+  .description('List all releases')
+  .action(make('list'))
 
 // program
 //   .command('release [commit]', 'Update the current pointer to the latest commit of the current branch. Build and upload if necessary.')
@@ -32,10 +37,10 @@ if (!process.argv.slice(2).length) {
   program.outputHelp()
 }
 
-function make (cmd) {
+function make (cmd, shouldPrintSuccess) {
   return (...args) => {
     co(require('../lib/commands/' + cmd))(...args)
-      .then(printSuccess)
+      .then(shouldPrintSuccess ? printSuccess : null)
       .catch(handleError)
   }
 }
