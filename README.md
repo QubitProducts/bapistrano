@@ -29,15 +29,11 @@ Build and upload the current branch. Uploading doesn't affect the `current` poin
 
 Build and upload a specific commit. This will get uploaded to a directory named on the branch you're currently on even if the commit is not in that branch.
 
-    $ bap upload cdef12
+    $ bap upload --as-branch master
 
 Update the `current` pointer of current branch to the latest commit of current branch.
 
     $ bap release
-
-Update the `current` pointer of current branch to a specific commit.
-
-    $ bap release cdef12
 
 Rollback the current release of current branch to the previous release.
 
@@ -61,10 +57,11 @@ You can also specify bap configuration in `package.json`:
 ```js
 {
   "bap": {
+    "region": "eu-west-1",      # default is us-west-1
     "bucket": "ui",
     "dist": "build",            # default is `.`
     "shared": "shared",         # default is false
-    "name": "app",              # default is package.json#name
+    "uploadTo": "ui/app",       # default is package.json#name
     "build": false,             # default is "npm run build"
     "keepReleases": 5,          # default is -1, which is keep them all
     "releaseBranches": [        # default is ["master"]

@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+var program = require('commander')
+var co = require('creed').coroutine
+var printSuccess = require('../lib/printSuccess')
+var handleError = require('../lib/handleError')
+ 
+program
+  .version(require('../package.json').version)
+
+program
+  .command('upload')
+  .option('-b, --as-branch [branch]', 'Upload the current commit to the specified branch dir irrespective of current branch')
+  .description('Build and upload the current branch to s3.')
+  .action(make('upload'))
+
+program
+  .command('release')
+  .option('-b, --as-branch [branch]', 'Release the current commit to the specified branch dir irrespective of current branch')
+  .description('Release the current branch to s3. Uploads first if needed.')
+  .action(make('release'))
+
+// program
+//   .command('release [commit]', 'Update the current pointer to the latest commit of the current branch. Build and upload if necessary.')
+//   .command('rollback')
+//   .command('list')
+//   .command('rm <releases...>')
+
+program.parse(process.argv)
+
+if (!process.argv.slice(2).length) {
+  program.outputHelp()
+}
+
+function make (cmd) {
+  return (...args) => {
+    co(require('../lib/commands/' + cmd))(...args)
+      .then(printSuccess)
+      .catch(handleError)
+  }
+}
