@@ -60,6 +60,7 @@ You can specify bapistrano configuration in `package.json`:
     "uploadTo": "ui/app",       # default is package.json#name
     "build": false,             # default is "npm run build"
     "clean": false,             # default is "npm run clean"
+    "notify": 'make slack',     # default is false
     "keepReleases": 5,          # default is -1, which keeps all releases
     "keepUploads": 5,           # default is 5
     "releaseBranches": [        # default is ["master"]
@@ -123,8 +124,32 @@ Bap has some helper commands for performing chores on s3 `list` and `remove`.
 
 #### Build
 
-By default, the build command is `npm run build`, but you can specify a custom command in `package.json` key `bap.build`. Similarly, at the end of the `upload` or `release` execution, `npm run clean` gets run. Change this with `bap.clean`. An environment variable BAP_RELEASE_NAME is set before executing the build command so that the build process could take this into account. For example, this might be useful when specifying the `webpack` `publicPath` option. BAP_RELEASE_NAME is of structure YYYY-MM-DDTHHmmss-commit, where commit is the first 6 commit characters.
+By default, the build command is `npm run build`, but you can specify a custom command in `package.json` key `bap.build`. Similarly, at the end of the `upload` or `release` execution, `npm run clean` gets run. Change this with `bap.clean`. Environment variables BAP_RELEASE_NAME and BAP_BRANCH are set before executing the build command so that the build process could take this into account. For example, this might be useful when specifying the `webpack` `publicPath` option. BAP_RELEASE_NAME is of structure YYYY-MM-DDTHHmmss-commit, where commit is the first 6 commit characters.
 
 #### REVISION
 
 When an upload is succesfully completed, a `REVISION` file gets created in the release dir. You can check for this file to know if the upload is complete.
+
+## Convention vs Configuration
+
+Bapistrano is designed to be easily specialised for your projects without having to repeat the configuration in all of the projects. Say you have 5 projects that you want to deploy with bapistrano and they all live in the same s3 bucket with the same structure and have the same lifecycle commands.
+
+You can create your own tiny npm package with `bin/bap` that creates a version of bap with custom defaults, e.g.:
+
+```js
+#!/usr/bin/env node
+
+var path = require('path')
+var meta = require(path.join(process.cwd(), 'package.json'))
+
+require('bapistrano/lib/bin')(Object.assign(require('bapistrano/lib/defaults')(), {
+  bucket: 'all-my-apps',
+  region: 'eu-west-1',
+  uploadTo: 'deployments/' + meta.name,
+  build: 'make build',
+  clean: 'make clean',
+  notify: 'make post-to-slack && curl -X POST https://myapp.com'
+}, meta.bap))
+```
+
+Now all 5 of those projects can just call `bap upload` or `bap release` without any further configuration in package.json
