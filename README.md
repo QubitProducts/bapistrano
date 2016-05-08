@@ -1,4 +1,4 @@
-# bap
+# bapistrano
 
 An opinionated way of deploying JS apps to s3.
 
