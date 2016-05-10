@@ -1,0 +1,37 @@
+{
+  "name": "bapistrano",
+  "version": "1.0.0",
+  "description": "Deploy JS apps to S3 multiverse.",
+  "main": "bap.js",
+  "bin": {
+    "bap": "./bin/bap"
+  },
+  "dependencies": {
+    "cli-color": "^1.1.0",
+    "commander": "^2.9.0",
+    "creed": "^1.0.1",
+    "gift-wrapper": "^1.1.1",
+    "klaw": "^1.2.0",
+    "moment": "^2.13.0",
+    "s3fs": "^2.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qubitdigital/bap.git"
+  },
+  "keywords": [
+    "deployment",
+    "s3",
+    "ui"
+  ],
+  "author": "Karolis Narkevicius <karolis@qubit.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qubitdigital/bap/issues"
+  },
+  "homepage": "https://github.com/qubitdigital/bap#readme"
+}
