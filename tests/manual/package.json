@@ -26,6 +26,7 @@
   "bap": {
     "bucket": "qubit-ui",
     "uploadTo": "ui/bap-example",
-    "distDir": "build"
+    "distDir": "build",
+    "releaseBranches": ["master", "next"]
   }
 }
