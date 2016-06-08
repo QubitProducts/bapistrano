@@ -17,9 +17,12 @@
     "ora": "^0.2.3",
     "s3fs": "^2.4.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "kn-release": "^1.0.1"
+  },
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "release": "release"
   },
   "repository": {
     "type": "git",
