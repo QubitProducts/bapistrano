@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qubitdigital/bap.git"
+    "url": "git+https://github.com/QubitProducts/bap.git"
   },
   "keywords": [
     "deployment",
@@ -36,7 +36,7 @@
   "author": "Karolis Narkevicius <karolis@qubit.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/qubitdigital/bap/issues"
+    "url": "https://github.com/QubitProducts/bap/issues"
   },
-  "homepage": "https://github.com/qubitdigital/bap#readme"
+  "homepage": "https://github.com/QubitProducts/bap#readme"
 }
