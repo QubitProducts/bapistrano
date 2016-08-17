@@ -55,15 +55,16 @@ You can specify bapistrano configuration in `package.json`:
 {
   "bap": {
     "bucket": "ui",
-    "region": "eu-west-1",      # default is us-west-1
-    "distDir": "build",         # default is `.`
-    "uploadTo": "ui/app",       # default is package.json#name
-    "build": false,             # default is "npm run build"
-    "clean": false,             # default is "npm run clean"
-    "notify": 'make slack',     # default is false
-    "keepReleases": 5,          # default is -1, which keeps all releases
-    "keepUploads": 5,           # default is 5
-    "releaseBranches": [        # default is ["master"]
+    "region": "eu-west-1",       # default is us-west-1
+    "distDir": "build",          # default is `.`
+    "uploadTo": "ui/app",        # default is package.json#name
+    "build": false,              # default is "npm run build"
+    "clean": false,              # default is "npm run clean"
+    "notify": 'make slack',      # default is false
+    "keepReleases": 5,           # default is -1, which keeps all releases
+    "keepUploads": 5,            # default is 5
+    "private": ["*.js.map"],     # default is [], which means make all files public
+    "releaseBranches": [         # default is ["master"]
       "master",
       "next"
     ]
@@ -129,6 +130,20 @@ By default, the build command is `npm run build`, but you can specify a custom c
 #### REVISION
 
 When an upload is succesfully completed, a `REVISION` file gets created in the release dir. You can check for this file to know if the upload is complete.
+
+#### Private / Public
+
+Clientside assets are usually meant to be public, say if you want to serve them via Cloudfront CDN. Bapistrano by default makes all uploaded files public.
+
+If you prefer keeping all assets private, use:
+
+    "private": ["*"]
+
+If you want to exlude specific files from being public, use:
+
+    "private": ["*.js.map", "manifest.json"]
+
+Pattern matching is done using [minimatch](https://github.com/isaacs/minimatch) with `matchBase: true`.
 
 ## Convention vs Configuration
 

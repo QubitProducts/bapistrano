@@ -27,6 +27,7 @@
     "bucket": "qubit-ui",
     "uploadTo": "ui/bap-example",
     "distDir": "build",
-    "releaseBranches": ["master", "next"]
+    "releaseBranches": ["master", "next"],
+    "private": ["*.js.map"]
   }
 }
