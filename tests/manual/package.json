@@ -6,7 +6,9 @@
   "devDependencies": {},
   "scripts": {
     "build": "rm -rf build && cp -R app build",
-    "clean": "rm -rf build"
+    "clean": "rm -rf build",
+    "test-api": "node api",
+    "test-cli": "../../bin/bap upload"
   },
   "repository": {
     "type": "git",
