@@ -116,7 +116,7 @@ Bap has 3 commands for deploying `upload`, `release` and `rollback`.
 
 - `upload` - runs `npm run build`, uploads the contents of the project to s3. For feature branches, it directly uploads the release to `releases` directory, immediately updates the `current` pointer and cleans up. For release branches, it only uploads the code to `uploads` directory and doesn't touch the `releases` dir.
 - `release` - updates the `current` pointer to the latest commit of the current branch. In case the commit in question is not uploaded to s3, `upload` is executed first. Typically, if you're previously executed the `upload` task, release will be very quick as it only copies the right release from `uploads` into `releases` and updates the `current` pointer without having to run the build again.
-- `rollback` - updates `current` pointer to point to the previous release. Use `--forward` to update it to the next release. Or specify the release name as an argument to roll to a specific release.
+- `rollback` - updates `current` pointer to point to the previous release. Use `--forward` to update it to the next release. Or specify the release id as an argument to roll to a specific release.
 
 Bap has some helper commands for performing chores on s3 `list` and `remove`.
 
@@ -125,7 +125,7 @@ Bap has some helper commands for performing chores on s3 `list` and `remove`.
 
 #### Build
 
-By default, the build command is `npm run build`, but you can specify a custom command in `package.json` key `bap.build`. Similarly, at the end of the `upload` or `release` execution, `npm run clean` gets run. Change this with `bap.clean`. Environment variables BAP_RELEASE_NAME and BAP_BRANCH are set before executing the build command so that the build process could take this into account. For example, this might be useful when specifying the `webpack` `publicPath` option. BAP_RELEASE_NAME is of structure YYYY-MM-DDTHHmmss-commit, where commit is the first 6 commit characters.
+By default, the build command is `npm run build`, but you can specify a custom command in `package.json` key `bap.build`. Similarly, at the end of the `upload` or `release` execution, `npm run clean` gets run. Change this with `bap.clean`. Environment variables BAP_RELEASE_ID and BAP_BRANCH are set before executing the build command so that the build process could take this into account. For example, this might be useful when specifying the `webpack` `publicPath` option. BAP_RELEASE_ID is of structure YYYY-MM-DDTHHmmss-commit, where commit is the first 7 commit characters.
 
 #### REVISION
 
