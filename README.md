@@ -145,6 +145,72 @@ If you want to exlude specific files from being public, use:
 
 Pattern matching is done using [minimatch](https://github.com/isaacs/minimatch) with `matchBase: true`.
 
+## Embedding bapistrano assets
+
+Once the assets are released to s3, the recommended way to embed them into your html is by using Cloudfront CDN in front of the s3 bucket. `Bapistrano` comes with a few helpers for retrieving metadata about the releases. E.g.
+
+```js
+var bapistrano = require('bapistrano')
+
+var bap = bapistrano.meta({
+  bucket: 'ui',
+  accessKeyId: '...',
+  secretAccessKey: '...',
+  cache: 60 * 1000
+})
+
+module.exports = async function getBundleUrl () {
+  var branch = 'master'
+  var releaseId = await bap.getCurrent('my-app', branch)
+  return `http://d111111abcdef8.cloudfront.net/my-app/${branch}/${releaseId}/bundle.js`
+}
+```
+
+### bapistrano.meta(options)
+
+Creates a meta service that can retrieve current release id and a list of branches.
+
+```js
+bapistrano.meta({
+  bucket: 'ui',
+  region: 'eu-west-1',
+  accessKeyId: '...',
+  secretAccessKey: '...',
+  cache: 60 * 1000 // how long to cache the values for before refetching from s3
+})
+```
+
+### meta.getCurrent(path, branchName)
+
+Get the current release id for the given branch. Returns a release id such as `2016-04-05T225500-commit1`.
+
+```js
+meta.getCurrent('my-app', 'master')
+meta.getCurrent('some/subpath/my-app', 'next') // note that first argument is path corresponding to uploadTo setting used when uploading the assets
+```
+
+Returns `null` if the branch does not exist.
+
+### meta.getBranches(path)
+
+Get a list of available branches.
+
+```js
+meta.getBranches('my-app')
+meta.getBranches('some/subpath/my-app')
+```
+
+Returns a list of branches such as:
+
+```js
+[{
+  name: 'master',
+  current: '2016-04-05T225500-commit1',
+  released: '2016-04-07T10:02:15.000Z',
+  uploaded: '2016-04-05T22:55:00.000Z'
+}]
+```
+
 ## Convention vs Configuration
 
 Bapistrano is designed to be easily specialised for your projects without having to repeat the configuration in all of the projects. Say you have 5 projects that you want to deploy with bapistrano and they all live in the same s3 bucket with the same structure and have the same lifecycle commands.
