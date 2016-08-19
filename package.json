@@ -17,7 +17,7 @@
     "minimatch": "^3.0.3",
     "moment": "^2.13.0",
     "ora": "^0.2.3",
-    "s3fs": "^2.4.5"
+    "s3fs": "kidkarolis/s3fs#copy-file-options"
   },
   "devDependencies": {
     "kn-release": "^1.0.1"
