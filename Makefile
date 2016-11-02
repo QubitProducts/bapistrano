@@ -1,15 +1,12 @@
 BIN = ./node_modules/.bin
 
-.PHONY: bootstrap test compile watch;
+.PHONY: bootstrap test compile;
 
 bootstrap:
 	yarn
 
 compile:
-	NODE_ENV=production $(BIN)/babel lib --out-dir dist --copy-files
-
-watch:
-	NODE_ENV=production $(BIN)/babel lib --out-dir dist --copy-files --watch
+	NODE_ENV=production $(BIN)/async-to-gen lib --out-dir dist
 
 test: lint
 

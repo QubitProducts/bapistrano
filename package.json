@@ -10,7 +10,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "babel-preset-node6": "^11.0.0",
+    "async-to-gen": "^1.1.4",
     "cli-color": "^1.1.0",
     "commander": "^2.9.0",
     "gift-wrapper": "^1.1.1",
@@ -23,8 +23,6 @@
     "s3fs": "^2.5.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-preset-stage-0": "^6.16.0",
     "kn-release": "^1.0.1",
     "standard": "^8.5.0"
   },

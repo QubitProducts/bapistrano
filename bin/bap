@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var path = require('path')
-var meta = require(path.join(process.cwd(), 'package.json'))
+const path = require('path')
+const meta = require(path.join(process.cwd(), 'package.json'))
 
 require('../dist/bin')(Object.assign(require('../dist/defaults')(), meta.bap))
