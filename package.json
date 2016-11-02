@@ -6,10 +6,13 @@
   "bin": {
     "bap": "./bin/bap"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "dependencies": {
+    "async-to-gen": "^1.1.4",
     "cli-color": "^1.1.0",
     "commander": "^2.9.0",
-    "creed": "^1.0.1",
     "gift-wrapper": "^1.1.1",
     "klaw": "^1.2.0",
     "lodash": "^4.15.0",
@@ -20,11 +23,13 @@
     "s3fs": "^2.5.0"
   },
   "devDependencies": {
-    "kn-release": "^1.0.1"
+    "kn-release": "^1.0.1",
+    "standard": "^8.5.0"
   },
   "scripts": {
-    "test": "standard",
-    "release": "release"
+    "test": "make test",
+    "compile": "make compile",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
@@ -40,5 +45,10 @@
   "bugs": {
     "url": "https://github.com/QubitProducts/bap/issues"
   },
-  "homepage": "https://github.com/QubitProducts/bap#readme"
+  "homepage": "https://github.com/QubitProducts/bap#readme",
+  "files": [
+    "bin/",
+    "dist/",
+    "README.md"
+  ]
 }
