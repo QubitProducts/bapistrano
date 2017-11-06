@@ -22,6 +22,9 @@
   "devDependencies": {
     "kn-release": "^1.0.1"
   },
+  "resolutions": {
+    "gift": "^0.10.1"
+  },
   "scripts": {
     "test": "standard",
     "release": "release"
