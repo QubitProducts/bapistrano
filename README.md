@@ -234,3 +234,16 @@ require('bapistrano/lib/bin')(Object.assign(require('bapistrano/lib/defaults')()
 ```
 
 Now all 5 of those projects can just call `bap upload` or `bap release` without any further configuration in package.json
+
+## Contributing
+
+Right now there are no automated tests other than linting.
+
+Run linting with
+
+    npm test
+
+Run the manual test with
+
+    cd tests/manual
+    npm run test-cli
