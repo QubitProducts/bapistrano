@@ -20,7 +20,8 @@
     "s3fs": "^2.5.0"
   },
   "devDependencies": {
-    "kn-release": "^1.0.1"
+    "kn-release": "^1.0.1",
+    "standard": "^10.0.3"
   },
   "scripts": {
     "test": "standard",
