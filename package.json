@@ -1,6 +1,6 @@
 {
   "name": "bapistrano",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "Deploy JS apps to S3 multiverse.",
   "main": "index.js",
   "bin": {
